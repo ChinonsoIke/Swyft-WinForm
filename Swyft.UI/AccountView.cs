@@ -1,5 +1,6 @@
 ﻿using Swyft.Core.Authentication;
 using Swyft.Core.Data;
+using Swyft.Core.Interfaces;
 using Swyft.Core.Models;
 using Swyft.Core.Services;
 using Swyft.Helpers;
@@ -13,11 +14,20 @@ using static System.Console;
 
 namespace Swyft.UI
 {
-    internal class AccountView
+    public class AccountView : IAccountView
     {
-        public static void DisplayAccountMenu()
+        private readonly IAccountService _accountService;
+        private readonly ITransactionService _transactionService;
+
+        public AccountView(IAccountService accountService, ITransactionService transactionService)
         {
-            Clear();
+            _accountService = accountService;
+            _transactionService = transactionService;
+        }
+
+        public void DisplayAccountMenu()
+        {
+            Print.PrintLogo();
             WriteLine("Select an option to continue:");
             WriteLine("\t1. View Accounts\n\t2. Create new Savings or Current account\n\t3. Logout");
             Write("==> ");
@@ -38,22 +48,20 @@ namespace Swyft.UI
             }
         }
 
-        public static void DisplayCreateAccountMenu(User user)
+        public void DisplayCreateAccountMenu(User user)
         {
             WriteLine("Select account type:");
             WriteLine("\t1. Savings\n\t2. Current\n");
             Write("==> ");
             string answer = ReadLine();
 
-            var accountService = new AccountService();
-
             if (answer == "1" || answer == "2")
             {
                 WriteLine("Creating account. Please wait ..."); // pause for dramatic effect
                 Thread.Sleep(1500);
 
-                accountService.Create(answer);
-                var account = accountService.Get(AccountService.IdCount);
+                _accountService.Create(answer);
+                var account = _accountService.Get(AccountService.IdCount);
 
                 WriteLine("Account successfully created. Your account details are:");
                 WriteLine($"\t- Account Name: {account.AccountName}\n\t- Account Number: {account.AccountNumber} \n\t- Account Type: {account.Type}");
@@ -64,9 +72,9 @@ namespace Swyft.UI
             }
         }
 
-        public static void DisplayViewAccountMenu(User user)
+        public void DisplayViewAccountMenu(User user)
         {
-            var accounts = DataStore.Accounts.Where(x => x.UserId == user.Id).ToList();
+            var accounts = _accountService.GetAllUserAccounts(user.Id);
             Print.PrintAccountDetails(accounts);
 
             Write("Select an account to continue: ");
@@ -81,9 +89,9 @@ namespace Swyft.UI
 
         }
 
-        public static void DisplaySingleAccount(Account account)
+        public void DisplaySingleAccount(Account account)
         {
-            Clear();
+            Print.PrintLogo();
             WriteLine($"\t- Account Name: {account.AccountName}\t- Account Number: {account.AccountNumber} \t- Account Type: {account.Type}");
             WriteLine("Select an action to continue:");
             WriteLine("\t1. Deposit\t2. Withdraw\n\t3. Transfer\t4. Request Statement\n\t5. Get Balance\t6. Main Menu");
@@ -113,15 +121,14 @@ namespace Swyft.UI
             }
         }
 
-        public static void DisplayDepositMenu(Account account)
+        public void DisplayDepositMenu(Account account)
         {
             Write("Amount to deposit: ");
             var answer = ReadLine();
 
             if (decimal.TryParse(answer, out decimal amount))
             {
-                UserService userService = new();
-                userService.Deposit(amount, account.Id, out string message);
+                _accountService.Deposit(amount, account.Id, out string message);
 
                 WriteLine(message);
                 Write("Press Enter to continue: ");
@@ -131,15 +138,14 @@ namespace Swyft.UI
             }
         }
 
-        public static void DisplayWithdrawalMenu(Account account)
+        public void DisplayWithdrawalMenu(Account account)
         {
             Write("Amount to withdraw: ");
             var answer = ReadLine();
 
             if (decimal.TryParse(answer, out decimal amount))
             {
-                var userService = new UserService();
-                userService.Withdraw(amount, account.Id, out string message);
+                _accountService.Withdraw(amount, account.Id, out string message);
 
                 WriteLine(message);
                 Write("Press Enter to continue: ");
@@ -149,7 +155,7 @@ namespace Swyft.UI
             }
         }
 
-        public static void DisplayTransferMenu(Account account)
+        public void DisplayTransferMenu(Account account)
         {
             Write("Enter amount: ");
             var answer = ReadLine();
@@ -179,8 +185,7 @@ namespace Swyft.UI
 
                 if (answer3 == Auth.CurrentUser.Pin)
                 {
-                    UserService userService = new();
-                    userService.Transfer(amount, account.Id, destinationAccount.Id, out string returnMessage);
+                    _accountService.Transfer(amount, account.Id, destinationAccount.Id, out string returnMessage);
 
                     WriteLine(returnMessage);
                     Write("Press Enter to continue: ");
@@ -196,9 +201,11 @@ namespace Swyft.UI
             }
         }
 
-        private static void DisplayAccountStatement(Account account)
+        public void DisplayAccountStatement(Account account)
         {
-            var transactions = DataStore.Transactions.Where(x => x.AccountId == account.Id).ToList();
+            Print.PrintLogo();
+
+            var transactions = _transactionService.GetAllAccountTransactions(account.Id);
 
             Print.PrintAccountStatement(account, transactions);
 
@@ -208,9 +215,9 @@ namespace Swyft.UI
             DisplaySingleAccount(account);
         }
 
-        private static void DisplayAccountBalance(Account account)
+        public void DisplayAccountBalance(Account account)
         {
-            WriteLine($"Account for account {account.AccountNumber}: {account.Balance:N2}");
+            WriteLine($"Available balance for account {account.AccountNumber}: {account.Balance:N2}");
 
             Write("Press Enter to continue: ");
             ReadLine();

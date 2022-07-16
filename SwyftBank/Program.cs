@@ -1,4 +1,8 @@
-﻿using Swyft.UI;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Swyft.Core.Interfaces;
+using Swyft.Core.Services;
+using Swyft.UI;
 using System;
 
 namespace SwyftBank
@@ -7,7 +11,18 @@ namespace SwyftBank
     {
         static void Main(string[] args)
         {
-            UserInterface.Run();
+            var host = Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddScoped<IUserService, UserService>();
+                    services.AddScoped<IAccountService, AccountService>();
+                    services.AddScoped<ITransactionService, TransactionService>();
+                    services.AddScoped<IAuthView, AuthView>();
+                    services.AddScoped<IAccountView, AccountView>();
+                }).Build();
+
+            var userInterface = ActivatorUtilities.CreateInstance<UserInterface>(host.Services);
+            userInterface.Run();
         }
     }
 }

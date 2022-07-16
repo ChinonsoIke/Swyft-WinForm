@@ -51,5 +51,94 @@ namespace Swyft.Core.Services
         {
             return DataStore.Accounts.Where(x => x.Status == EntityStatus.Active).First(x => x.Id == id);
         }
+
+        public void Deposit(decimal amount, int accountId, out string message)
+        {
+            var transType = TransType.Credit;
+            var transCategory = TransCategory.Deposit;
+            string transDesc = $"Deposit by {Auth.CurrentUser.FullName}";
+
+            var transService = new TransactionService();
+            transService.Create(amount, accountId, transType, transCategory, transDesc);
+
+            message = "Deposit transaction successful.";
+        }
+
+        public bool Withdraw(decimal amount, int accountId, out string message)
+        {
+            var account = DataStore.Accounts.First(x => x.Id == accountId);
+
+            if (account.Type == AccountType.Savings)
+            {
+                if (account.Balance - amount < 1000)
+                {
+                    message = "You have insufficient funds to complete this transaction.";
+                    return false;
+                }
+            }
+            else if (account.Type == AccountType.Current)
+            {
+                if (account.Balance < amount)
+                {
+                    message = "You have insufficient funds to complete this transaction.";
+                    return false;
+                }
+            }
+
+            var transType = TransType.Debit;
+            var transCategory = TransCategory.Withdrawal;
+            string transDesc = $"Withdrawal by {Auth.CurrentUser.FullName}";
+
+            var transService = new TransactionService();
+            transService.Create(amount, accountId, transType, transCategory, transDesc);
+
+            message = "Withdrawal transaction successful.";
+
+            return true;
+        }
+
+        public bool Transfer(decimal amount, int accountId, int destinationAccountId, out string message)
+        {
+            var account = DataStore.Accounts.First(x => x.Id == accountId);
+            var destinationAccount = DataStore.Accounts.First(x => x.Id == destinationAccountId);
+
+            if (account.Type == AccountType.Savings)
+            {
+                if (account.Balance - amount < 1000)
+                {
+                    message = "You have insufficient funds to complete this transaction.";
+                    return false;
+                }
+            }
+            else if (account.Type == AccountType.Current)
+            {
+                if (account.Balance < amount)
+                {
+                    message = "You have insufficient funds to complete this transaction.";
+                    return false;
+                }
+            }
+
+            var transType = TransType.Debit;
+            var transCategory = TransCategory.Transfer;
+            string transDesc = $"Transfer by {Auth.CurrentUser.FullName}";
+
+            var transType2 = TransType.Credit;
+            var transCategory2 = TransCategory.Deposit;
+            string transDesc2 = $"Transfer from {Auth.CurrentUser.FullName}";
+
+            var transService = new TransactionService();
+            transService.Create(amount, accountId, transType, transCategory, transDesc);
+            transService.Create(amount, destinationAccountId, transType2, transCategory2, transDesc2);
+
+            message = "Transfer transaction successful.";
+
+            return true;
+        }
+
+        public List<Account> GetAllUserAccounts(int accountId)
+        {
+            return DataStore.Accounts.Where(x => x.UserId == accountId).ToList();
+        }
     }
 }

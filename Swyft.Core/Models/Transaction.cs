@@ -12,7 +12,6 @@ namespace Swyft.Core.Models
 {
     public class Transaction : IEntity
     {
-        public static TransactionService TransactionService { get; set; } = new TransactionService();
         public int Id { get; set; }
         public TransType Type { get; set; }
         public TransCategory Category { get; set; }

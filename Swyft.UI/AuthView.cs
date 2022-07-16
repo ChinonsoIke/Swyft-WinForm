@@ -1,4 +1,5 @@
 ﻿using Swyft.Core.Authentication;
+using Swyft.Core.Interfaces;
 using Swyft.Core.Services;
 using Swyft.Helpers;
 using System;
@@ -10,9 +11,15 @@ using static System.Console;
 
 namespace Swyft.UI
 {
-    internal class AuthView
+    public class AuthView : IAuthView
     {
-        public static void DisplayAuthMenu()
+        private readonly IUserService _userService;
+
+        public AuthView(IUserService userService)
+        {
+            _userService = userService;
+        }
+        public void DisplayAuthMenu()
         {
             WriteLine("Welcome, select an option to continue:");
             WriteLine("\t1. Login\n\t2. Register\n\t3. Exit");
@@ -33,22 +40,28 @@ namespace Swyft.UI
             }
         }
 
-        static bool Login()
+        public bool Login()
         {
-            WriteLine("Enter your details to login");
-            Write("Email: ");
-            string email = ReadLine();
+            int count = 0;
 
-            Write("Password: ");
-            string password = ReadLine();
+            while (count < 3)
+            {
+                WriteLine("Enter your details to login");
+                Write("Email: ");
+                string email = ReadLine();
 
-            if (Auth.Login(email, password)) return true;
+                Write("Password: ");
+                string password = ReadLine();
 
-            WriteLine("Invalid email or password");
+                if (Auth.Login(email, password)) return true;
+
+                WriteLine("Invalid email or password");
+                count++;
+            }
             return false;
         }
 
-        static void Register()
+        public void Register()
         {
             bool invalid = true;
             int count = 0;
@@ -67,20 +80,23 @@ namespace Swyft.UI
                 Write("Password: ");
                 string password = ReadLine();
 
-                Write("Transaction PIN: ");
+                Write("Confirm Password: ");
+                string passwordConfirm = ReadLine();
+
+                Write("Enter a PIN to use for your transactions: ");
                 string pin = ReadLine();
 
-                bool detailsValid = Validate.Register(firstName, lastName, email, password, pin, out List<string> messages);
+                bool detailsValid = Validate.Register(firstName, lastName, email, password, passwordConfirm, pin, out List<string> messages);
 
                 if (detailsValid)
                 {
-                    var userService = new UserService();
-                    userService.Create(firstName, lastName, email, password, pin);
+                    _userService.Create(firstName, lastName, email, password, pin);
                     Auth.Login(email, password);
                     invalid = false;
                 }
                 else
                 {
+                    WriteLine();
                     foreach (var message in messages)
                     {
                         WriteLine(message);

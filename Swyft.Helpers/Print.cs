@@ -1,4 +1,5 @@
-﻿using Swyft.Core.Models;
+﻿using Figgle;
+using Swyft.Core.Models;
 using Swyft.Utility;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,16 @@ namespace Swyft.Helpers
                 //}
             }
             Console.WriteLine($"| {"------------------------------------------------------------------------------------------------------",-87} |");
+        }
+
+        public static void PrintLogo()
+        {
+            Clear();
+            BackgroundColor = ConsoleColor.DarkRed;
+            ForegroundColor = ConsoleColor.Black;
+            WriteLine(FiggleFonts.Slant.Render("Swyft Bank >>>"));
+            ForegroundColor = ConsoleColor.White;
+            BackgroundColor = ConsoleColor.Black;
         }
     }
 }

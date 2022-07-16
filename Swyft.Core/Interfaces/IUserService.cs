@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Swyft.Core.Interfaces
 {
-    internal interface IUserService : IEntityService
+    public interface IUserService : IEntityService
     {
         public void Create(string firstName, string lastName, string email, string password, string pin);
     }

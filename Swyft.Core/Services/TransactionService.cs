@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Swyft.Core.Services
 {
-    public class TransactionService : IEntityService
+    public class TransactionService : ITransactionService
     {
         public static int IdCount { get; set; }
         public void Create(decimal amount, int acccountId, TransType transType, TransCategory transCategory, string transDesc)
@@ -37,6 +37,11 @@ namespace Swyft.Core.Services
         public IEntity Get(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public List<Transaction> GetAllAccountTransactions(int transId)
+        {
+            return DataStore.Transactions.Where(x => x.AccountId == transId).ToList();
         }
     }
 }

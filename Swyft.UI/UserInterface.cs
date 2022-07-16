@@ -1,4 +1,6 @@
-﻿using Swyft.Core.Authentication;
+﻿using Microsoft.Extensions.Options;
+using Swyft.Core.Authentication;
+using Swyft.Core.Interfaces;
 using Swyft.Core.Services;
 using Swyft.Helpers;
 using System;
@@ -12,20 +14,28 @@ namespace Swyft.UI
 {
     public class UserInterface
     {
-        public static void Run()
-        {
-            Clear();
+        private readonly IAuthView _authView;
+        private readonly IAccountView _accountView;
 
+        public UserInterface(IAuthView authView, IAccountView accountView )
+        {
+            _authView = authView;
+            _accountView = accountView;
+        }
+    
+        public void Run()
+        {
             bool running = true;
 
             while (running)
             {
                 while (Auth.CurrentUser == null)
                 {
-                    AuthView.DisplayAuthMenu();
+                    Print.PrintLogo();
+                    _authView.DisplayAuthMenu();
                 }
 
-                AccountView.DisplayAccountMenu();
+                _accountView.DisplayAccountMenu();
             }
         }
     }

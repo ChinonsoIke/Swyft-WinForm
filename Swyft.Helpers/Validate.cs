@@ -11,7 +11,7 @@ namespace Swyft.Helpers
 {
     public class Validate
     {
-        public static bool Register(string firstName, string lastName, string email, string password, string pin, out List<string> messages)
+        public static bool Register(string firstName, string lastName, string email, string password, string passwordConfirm, string pin, out List<string> messages)
         {
             messages = new List<string>();
             if (!Regex.IsMatch(firstName, @"[A-Z][a-z]+"))
@@ -29,6 +29,10 @@ namespace Swyft.Helpers
             if (!Regex.IsMatch(password, @"^(?=.*[@$!%*#?&])(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9@$!%*#?&]{6,}$"))
             {
                 messages.Add("Invalid input for Password: must be minimum 6 characters that include alphanumeric and at least one special character");
+            }
+            if (password != passwordConfirm)
+            {
+                messages.Add("Passwords do not match.");
             }
             if (!Regex.IsMatch(pin, @"^\d{4}$"))
             {
