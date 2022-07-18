@@ -19,6 +19,7 @@ namespace Swyft.UI
         {
             _userService = userService;
         }
+
         public void DisplayAuthMenu()
         {
             WriteLine("Welcome, select an option to continue:");
@@ -40,7 +41,7 @@ namespace Swyft.UI
             }
         }
 
-        public bool Login()
+        public void Login()
         {
             int count = 0;
 
@@ -51,60 +52,112 @@ namespace Swyft.UI
                 string email = ReadLine();
 
                 Write("Password: ");
-                string password = ReadLine();
+                string password = Validate.GetPassword();
 
-                if (Auth.Login(email, password)) return true;
+                if (Auth.Login(email, password)) break;
 
                 WriteLine("Invalid email or password");
                 count++;
             }
-            return false;
         }
 
         public void Register()
         {
-            bool invalid = true;
-            int count = 0;
+            string firstName = "", lastName = "", email = "", password = "", passwordConfirm = "", pin = "";
+            WriteLine("Press q at any time to quit:");
 
-            while (invalid && count < 3)
+            while (true)
             {
                 Write("Firstname: ");
-                string firstName = ReadLine();
+                firstName = ReadLine();
 
-                Write("Lastname: ");
-                string lastName = ReadLine();
+                if (firstName.ToLower() == "q") return;
 
-                Write("Email: ");
-                string email = ReadLine();
-
-                Write("Password: ");
-                string password = ReadLine();
-
-                Write("Confirm Password: ");
-                string passwordConfirm = ReadLine();
-
-                Write("Enter a PIN to use for your transactions: ");
-                string pin = ReadLine();
-
-                bool detailsValid = Validate.Register(firstName, lastName, email, password, passwordConfirm, pin, out List<string> messages);
-
-                if (detailsValid)
+                if (!Validate.CheckName(firstName))
                 {
-                    _userService.Create(firstName, lastName, email, password, pin);
-                    Auth.Login(email, password);
-                    invalid = false;
-                }
-                else
-                {
-                    WriteLine();
-                    foreach (var message in messages)
-                    {
-                        WriteLine(message);
-                    }
-                    count++;
+                    WriteLine("Invalid input for Firstname: name must be in Title case.");
                     continue;
                 }
+                break;
             }
+
+            while (true)
+            {
+                Write("Lastname: ");
+                lastName = ReadLine();
+
+                if (lastName.ToLower() == "q") return;
+
+                if (!Validate.CheckName(lastName))
+                {
+                    WriteLine("Invalid input for Lastname: name must be in Title case and 3 or more characters long.");
+                    continue;
+                }
+                break;
+            }
+
+            while (true)
+            {
+                Write("Email: ");
+                email = ReadLine();
+
+                if (email.ToLower() == "q") return;
+
+                if (!Validate.CheckEmail(email))
+                {
+                    WriteLine("Invalid input for Email: must be a valid email address.");
+                    continue;
+                }
+                break;
+            }
+
+            while (true)
+            {
+                Write("Password: ");
+                password = Validate.GetPassword();
+
+                if (password.ToLower() == "q") return;
+
+                if (!Validate.CheckPassword(password))
+                {
+                    WriteLine("Invalid input for Password: must be minimum 6 characters that include alphanumeric and at least one special character.");
+                    continue;
+                }
+                break;
+            }
+
+            while (true)
+            {
+                Write("Confirm Password: ");
+                passwordConfirm = Validate.GetPassword();
+
+                if (passwordConfirm.ToLower() == "q") return;
+
+                if (!Validate.CheckPasswordMatch(password, passwordConfirm))
+                {
+                    WriteLine("Passwords do not match.");
+                    continue;
+                }
+                break;
+            }
+
+            while (true)
+            {
+                Write("\nEnter a 4-digit PIN to use for your transactions: ");
+                pin = Validate.GetPassword();
+
+                if (pin.ToLower() == "q") return;
+
+                if (!Validate.CheckPin(pin))
+                {
+                    WriteLine("Invalid input for PIN: must be 4 diigits.");
+                    continue;
+                }
+                break;
+            }
+
+            _userService.Create(firstName, lastName, email, password, pin);
+            Auth.Login(email, password);
         }
     }
 }

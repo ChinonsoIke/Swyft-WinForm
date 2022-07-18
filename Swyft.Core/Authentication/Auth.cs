@@ -12,6 +12,12 @@ namespace Swyft.Core.Authentication
     {
         public static User CurrentUser { get; set; }
 
+        /// <summary>
+        /// Log a user into the application
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns>True if credentials match user in database, or false if no user is found</returns>
         public static bool Login(string email, string password)
         {
             User user = DataStore.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
@@ -23,6 +29,9 @@ namespace Swyft.Core.Authentication
             }
         }
 
+        /// <summary>
+        /// Log user out from the application
+        /// </summary>
         public static void Logout()
         {
             CurrentUser = null;

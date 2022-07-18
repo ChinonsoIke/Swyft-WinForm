@@ -12,7 +12,6 @@ namespace Swyft.Core.Models
 {
     public class Account : IEntity
     {
-        public static AccountService AccountService { get; set; } = new AccountService();
         public int Id { get; set; }
         public string AccountName { get; set; }
         public string AccountNumber { get; set; }

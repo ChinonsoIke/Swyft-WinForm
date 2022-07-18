@@ -14,6 +14,13 @@ namespace Swyft.Core.Services
     public class AccountService : IAccountService
     {
         public static int IdCount { get; set; }
+
+        private readonly ITransactionService _transactionService;
+
+        public AccountService(ITransactionService transactionService)
+        {
+            _transactionService = transactionService;
+        }
         public void Create(string type)
         {
             var user = Auth.CurrentUser;
@@ -52,36 +59,40 @@ namespace Swyft.Core.Services
             return DataStore.Accounts.Where(x => x.Status == EntityStatus.Active).First(x => x.Id == id);
         }
 
-        public void Deposit(decimal amount, int accountId, out string message)
+        public void Deposit(decimal amount, int accountId)
         {
+            if(amount < 0)
+            {
+                throw new Exception("Why this?");
+            }
             var transType = TransType.Credit;
             var transCategory = TransCategory.Deposit;
             string transDesc = $"Deposit by {Auth.CurrentUser.FullName}";
 
-            var transService = new TransactionService();
-            transService.Create(amount, accountId, transType, transCategory, transDesc);
-
-            message = "Deposit transaction successful.";
+            _transactionService.Create(amount, accountId, transType, transCategory, transDesc);
         }
 
-        public bool Withdraw(decimal amount, int accountId, out string message)
+        public void Withdraw(decimal amount, int accountId)
         {
+            if (amount < 0)
+            {
+                throw new Exception("Why this?");
+            }
+
             var account = DataStore.Accounts.First(x => x.Id == accountId);
 
             if (account.Type == AccountType.Savings)
             {
                 if (account.Balance - amount < 1000)
                 {
-                    message = "You have insufficient funds to complete this transaction.";
-                    return false;
+                    throw new Exception("You have insufficient funds to complete this transaction.");
                 }
             }
             else if (account.Type == AccountType.Current)
             {
                 if (account.Balance < amount)
                 {
-                    message = "You have insufficient funds to complete this transaction.";
-                    return false;
+                    throw new Exception("You have insufficient funds to complete this transaction.");
                 }
             }
 
@@ -89,16 +100,16 @@ namespace Swyft.Core.Services
             var transCategory = TransCategory.Withdrawal;
             string transDesc = $"Withdrawal by {Auth.CurrentUser.FullName}";
 
-            var transService = new TransactionService();
-            transService.Create(amount, accountId, transType, transCategory, transDesc);
-
-            message = "Withdrawal transaction successful.";
-
-            return true;
+            _transactionService.Create(amount, accountId, transType, transCategory, transDesc);
         }
 
-        public bool Transfer(decimal amount, int accountId, int destinationAccountId, out string message)
+        public void Transfer(decimal amount, int accountId, int destinationAccountId)
         {
+            if (amount < 0)
+            {
+                throw new Exception("Why this?");
+            }
+
             var account = DataStore.Accounts.First(x => x.Id == accountId);
             var destinationAccount = DataStore.Accounts.First(x => x.Id == destinationAccountId);
 
@@ -106,16 +117,14 @@ namespace Swyft.Core.Services
             {
                 if (account.Balance - amount < 1000)
                 {
-                    message = "You have insufficient funds to complete this transaction.";
-                    return false;
+                    throw new Exception("You have insufficient funds to complete this transaction.");
                 }
             }
             else if (account.Type == AccountType.Current)
             {
                 if (account.Balance < amount)
                 {
-                    message = "You have insufficient funds to complete this transaction.";
-                    return false;
+                    throw new Exception("You have insufficient funds to complete this transaction.");
                 }
             }
 
@@ -127,13 +136,8 @@ namespace Swyft.Core.Services
             var transCategory2 = TransCategory.Deposit;
             string transDesc2 = $"Transfer from {Auth.CurrentUser.FullName}";
 
-            var transService = new TransactionService();
-            transService.Create(amount, accountId, transType, transCategory, transDesc);
-            transService.Create(amount, destinationAccountId, transType2, transCategory2, transDesc2);
-
-            message = "Transfer transaction successful.";
-
-            return true;
+            _transactionService.Create(amount, accountId, transType, transCategory, transDesc);
+            _transactionService.Create(amount, destinationAccountId, transType2, transCategory2, transDesc2);
         }
 
         public List<Account> GetAllUserAccounts(int accountId)

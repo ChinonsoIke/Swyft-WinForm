@@ -11,7 +11,6 @@ namespace Swyft.Core.Models
 {
     public class User : IEntity
     {
-        public static UserService UserService { get; set; } = new UserService();
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -15,8 +15,8 @@ namespace SwyftBank
                 .ConfigureServices((context, services) =>
                 {
                     services.AddScoped<IUserService, UserService>();
-                    services.AddScoped<IAccountService, AccountService>();
                     services.AddScoped<ITransactionService, TransactionService>();
+                    services.AddScoped<IAccountService, AccountService>();
                     services.AddScoped<IAuthView, AuthView>();
                     services.AddScoped<IAccountView, AccountView>();
                 }).Build();

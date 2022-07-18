@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Swyft.Core.Authentication;
+using Swyft.Core.Data;
 using Swyft.Core.Interfaces;
 using Swyft.Core.Services;
 using Swyft.Helpers;
@@ -23,11 +24,18 @@ namespace Swyft.UI
             _accountView = accountView;
         }
     
+        /// <summary>
+        /// Start the application
+        /// </summary>
         public void Run()
         {
-            bool running = true;
 
-            while (running)
+            ForegroundColor = ConsoleColor.DarkYellow;
+
+            // skip authentication and bank account creation stages
+            Faker.Initiate();
+
+            while (true)
             {
                 while (Auth.CurrentUser == null)
                 {
@@ -35,7 +43,7 @@ namespace Swyft.UI
                     _authView.DisplayAuthMenu();
                 }
 
-                _accountView.DisplayAccountMenu();
+                _accountView.DisplayDashboard();
             }
         }
     }

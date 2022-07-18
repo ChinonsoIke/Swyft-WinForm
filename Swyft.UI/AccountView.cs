@@ -25,7 +25,7 @@ namespace Swyft.UI
             _transactionService = transactionService;
         }
 
-        public void DisplayAccountMenu()
+        public void DisplayDashboard()
         {
             Print.PrintLogo();
             WriteLine("Select an option to continue:");
@@ -68,7 +68,7 @@ namespace Swyft.UI
                 Write("Press Enter to continue: ");
                 ReadLine();
 
-                DisplayAccountMenu();
+                DisplayDashboard();
             }
         }
 
@@ -117,7 +117,7 @@ namespace Swyft.UI
                 DisplayAccountBalance(account);
             }else if (answer == "6")
             {
-                DisplayAccountMenu();
+                DisplayDashboard();
             }
         }
 
@@ -128,14 +128,21 @@ namespace Swyft.UI
 
             if (decimal.TryParse(answer, out decimal amount))
             {
-                _accountService.Deposit(amount, account.Id, out string message);
+                try
+                {
+                    _accountService.Deposit(amount, account.Id);
 
-                WriteLine(message);
-                Write("Press Enter to continue: ");
-                ReadLine();
-
-                DisplaySingleAccount(account);
+                    WriteLine("Deposit transaction successful");
+                }
+                catch (Exception e)
+                {
+                    WriteLine(e.Message);
+                }
             }
+
+            Write("Press Enter to continue: ");
+            ReadLine();
+            DisplaySingleAccount(account);
         }
 
         public void DisplayWithdrawalMenu(Account account)
@@ -143,16 +150,36 @@ namespace Swyft.UI
             Write("Amount to withdraw: ");
             var answer = ReadLine();
 
-            if (decimal.TryParse(answer, out decimal amount))
+            if (!decimal.TryParse(answer, out decimal amount))
             {
-                _accountService.Withdraw(amount, account.Id, out string message);
-
-                WriteLine(message);
-                Write("Press Enter to continue: ");
+                WriteLine("Invalid input");
                 ReadLine();
-
                 DisplaySingleAccount(account);
             }
+
+            Write($"Enter your 4 digit PIN to withdraw from your account: ");
+            var answer2 = Validate.GetPassword();
+
+            if (answer2 == Auth.CurrentUser.Pin)
+            {
+                try
+                {
+                    _accountService.Withdraw(amount, account.Id);
+                    WriteLine("Transfer transaction successful");
+                }
+                catch (Exception e)
+                {
+                    WriteLine(e.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid transaction PIN");
+            }
+
+            Write("Press Enter to continue: ");
+            ReadLine();
+            DisplaySingleAccount(account);
         }
 
         public void DisplayTransferMenu(Account account)
@@ -163,6 +190,7 @@ namespace Swyft.UI
             if(!decimal.TryParse(answer, out decimal amount))
             {
                 WriteLine("Invalid input");
+                ReadLine();
                 DisplaySingleAccount(account);
             }
 
@@ -181,23 +209,28 @@ namespace Swyft.UI
             else
             {
                 Write($"Enter your 4 digit PIN to transfer {amount} to [ {destinationAccount.AccountName}, {destinationAccount.AccountNumber}, Swyft Bank ]: ");
-                var answer3 = ReadLine();
+                var answer3 = Validate.GetPassword();
 
                 if (answer3 == Auth.CurrentUser.Pin)
                 {
-                    _accountService.Transfer(amount, account.Id, destinationAccount.Id, out string returnMessage);
-
-                    WriteLine(returnMessage);
-                    Write("Press Enter to continue: ");
-                    ReadLine();
-
-                    DisplaySingleAccount(account);
+                    try
+                    {
+                        _accountService.Transfer(amount, account.Id, destinationAccount.Id);
+                        WriteLine("Transfer transaction successful");
+                    }
+                    catch (Exception e)
+                    {
+                        WriteLine(e.Message);
+                    }
                 }
                 else
                 {
                     Console.WriteLine("Invalid transaction PIN");
-                    DisplaySingleAccount(account);
                 }
+
+                Write("Press Enter to continue: ");
+                ReadLine();
+                DisplaySingleAccount(account);
             }
         }
 
