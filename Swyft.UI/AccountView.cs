@@ -75,16 +75,25 @@ namespace Swyft.UI
         public void DisplayViewAccountMenu(User user)
         {
             var accounts = _accountService.GetAllUserAccounts(user.Id);
-            Print.PrintAccountDetails (accounts);
 
-            Write("Select an account to continue: ");
-            var answer = ReadLine();
-            int.TryParse(answer, out int num);
-
-            if (num > 0 && num <= accounts.Count)
+            if(accounts.Count > 0)
             {
-                var account = accounts[num-1];
-                DisplaySingleAccount(account);
+                Print.PrintAccountDetails(accounts);
+
+                Write("Select an account to continue: ");
+                var answer = ReadLine();
+                int.TryParse(answer, out int num);
+
+                if (num > 0 && num <= accounts.Count)
+                {
+                    var account = accounts[num - 1];
+                    DisplaySingleAccount(account);
+                }
+            }
+            else
+            {
+                WriteLine("You currently have no accounts.");
+                ReadLine();
             }
 
         }
@@ -240,7 +249,14 @@ namespace Swyft.UI
 
             var transactions = _transactionService.GetAllAccountTransactions(account.Id);
 
-            Print.PrintAccountStatement(account, transactions);
+            if(transactions.Count > 0)
+            {
+                Print.PrintAccountStatement(account, transactions);
+            }
+            else
+            {
+                WriteLine("You currently have no transaction history to display.");
+            }
 
             Write("Press Enter to continue: ");
             ReadLine();

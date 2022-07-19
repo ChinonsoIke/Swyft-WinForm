@@ -1,5 +1,6 @@
 ﻿using Swyft.Core.Authentication;
 using Swyft.Core.Models;
+using Swyft.Core.Services;
 using Swyft.Utility;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Swyft.Core.Data
         /// </summary>
         public static void Initiate()
         {
-            var user = new User(1, "Nonso", "Ike", "nonsoike@test.com", HashPassword("noxx2022!"), "1234");
+            var user = new User(UserService.IdCount++, "Nonso", "Ike", "nonsoike@test.com", HashPassword("noxx2022!"), "1234");
             DataStore.Users.Add(user);
             Auth.CurrentUser = user;
 

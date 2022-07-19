@@ -29,7 +29,7 @@ namespace Swyft.Helpers
         /// <returns>True or false value indicating whether input is valid</returns>
         public static bool CheckEmail(string email)
         {
-            return Regex.IsMatch(email, @"^[a-z0-9]{5,20}@[a-z]{3,20}\.[a-z]{2,4}$");
+            return Regex.IsMatch(email, @"^[a-z0-9]{5,20}@[a-z]{3,20}\.[a-z.]{2,}$");
         }
 
         /// <summary>

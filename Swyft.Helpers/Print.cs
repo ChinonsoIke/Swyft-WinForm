@@ -68,8 +68,10 @@ namespace Swyft.Helpers
         public static void PrintLogo()
         {
             Clear();
-            BackgroundColor = ConsoleColor.DarkRed;
+            BackgroundColor = ConsoleColor.DarkBlue;
+            ForegroundColor = ConsoleColor.Black;
             WriteLine(FiggleFonts.Slant.Render("            Swyft Bank >>>           "));
+            ForegroundColor = ConsoleColor.DarkBlue;
             BackgroundColor = ConsoleColor.Black;
         }
     }
