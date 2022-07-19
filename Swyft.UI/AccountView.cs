@@ -75,7 +75,7 @@ namespace Swyft.UI
         public void DisplayViewAccountMenu(User user)
         {
             var accounts = _accountService.GetAllUserAccounts(user.Id);
-            Print.PrintAccountDetails(accounts);
+            Print.PrintAccountDetails (accounts);
 
             Write("Select an account to continue: ");
             var answer = ReadLine();

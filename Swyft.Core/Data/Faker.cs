@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BCrypt.Net.BCrypt;
 
 namespace Swyft.Core.Data
 {
@@ -16,7 +17,7 @@ namespace Swyft.Core.Data
         /// </summary>
         public static void Initiate()
         {
-            var user = new User(1, "Nonso", "Ike", "nonsoike@test.com", "noxx2022!", "1234");
+            var user = new User(1, "Nonso", "Ike", "nonsoike@test.com", HashPassword("noxx2022!"), "1234");
             DataStore.Users.Add(user);
             Auth.CurrentUser = user;
 

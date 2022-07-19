@@ -1,13 +1,9 @@
 ﻿using Swyft.Core.Authentication;
 using Swyft.Core.Interfaces;
-using Swyft.Core.Services;
 using Swyft.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static System.Console;
+using static BCrypt.Net.BCrypt;
 
 namespace Swyft.UI
 {
@@ -63,7 +59,7 @@ namespace Swyft.UI
 
         public void Register()
         {
-            string firstName = "", lastName = "", email = "", password = "", passwordConfirm = "", pin = "";
+            string firstName = "", lastName = "", email = "", password = "", passwordConfirm = "", pin = "", passwordHash = "";
             WriteLine("Press q at any time to quit:");
 
             while (true)
@@ -108,6 +104,11 @@ namespace Swyft.UI
                     WriteLine("Invalid input for Email: must be a valid email address.");
                     continue;
                 }
+                if (!Validate.CheckEmailUnique(email))
+                {
+                    WriteLine("A user account with this email already exists.");
+                    continue;
+                }
                 break;
             }
 
@@ -123,6 +124,7 @@ namespace Swyft.UI
                     WriteLine("Invalid input for Password: must be minimum 6 characters that include alphanumeric and at least one special character.");
                     continue;
                 }
+                passwordHash = HashPassword(password);
                 break;
             }
 
@@ -156,7 +158,7 @@ namespace Swyft.UI
                 break;
             }
 
-            _userService.Create(firstName, lastName, email, password, pin);
+            _userService.Create(firstName, lastName, email, passwordHash, pin);
             Auth.Login(email, password);
         }
     }

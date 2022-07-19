@@ -1,10 +1,7 @@
 ﻿using Swyft.Core.Data;
 using Swyft.Core.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static BCrypt.Net.BCrypt;
 
 namespace Swyft.Core.Authentication
 {
@@ -20,8 +17,9 @@ namespace Swyft.Core.Authentication
         /// <returns>True if credentials match user in database, or false if no user is found</returns>
         public static bool Login(string email, string password)
         {
-            User user = DataStore.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
-            if (user == null) return false;
+            User user = DataStore.Users.FirstOrDefault(x => x.Email == email);
+
+            if (user == null || !Verify(password, user.Password)) return false;
             else
             {
                 CurrentUser = user;

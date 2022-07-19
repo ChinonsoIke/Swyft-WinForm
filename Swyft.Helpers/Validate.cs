@@ -33,6 +33,16 @@ namespace Swyft.Helpers
         }
 
         /// <summary>
+        /// Ensure that email provided by user does not belong to an existing account
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>Boolean value indicating whether the email is unique or not</returns>
+        public static bool CheckEmailUnique(string email)
+        {
+            return DataStore.Users.FirstOrDefault(u => u.Email == email) == null;
+        }
+
+        /// <summary>
         /// Validate password input submitted in by user
         /// </summary>
         /// <param name="password"></param>
