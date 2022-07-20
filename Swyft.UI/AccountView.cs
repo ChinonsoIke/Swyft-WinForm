@@ -28,9 +28,12 @@ namespace Swyft.UI
         public void DisplayDashboard()
         {
             Print.PrintLogo();
+
+            WriteLine($"Good {Print.GetGreeting()}, {Auth.CurrentUser.FirstName}.\n");
             WriteLine("Select an option to continue:");
             WriteLine("\t1. View Accounts\n\t2. Create new Savings or Current account\n\t3. Logout");
             Write("==> ");
+
             string answer= ReadLine();
 
             var user = Auth.CurrentUser;

@@ -74,5 +74,14 @@ namespace Swyft.Helpers
             ForegroundColor = ConsoleColor.DarkBlue;
             BackgroundColor = ConsoleColor.Black;
         }
+
+        public static string GetGreeting()
+        {
+            var now = DateTime.Now;
+
+            if (now.Hour > 22) return "evening";
+            else if (now.Hour >= 12) return "afternoon";
+            else return "morning";
+        }
     }
 }
