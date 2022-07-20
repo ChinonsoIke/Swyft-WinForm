@@ -79,7 +79,7 @@ namespace Swyft.Helpers
         {
             var now = DateTime.Now;
 
-            if (now.Hour > 22) return "evening";
+            if (now.Hour > 16) return "evening";
             else if (now.Hour >= 12) return "afternoon";
             else return "morning";
         }
