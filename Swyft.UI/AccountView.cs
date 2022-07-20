@@ -30,7 +30,6 @@ namespace Swyft.UI
             Print.PrintLogo();
             WriteLine("Select an option to continue:");
             WriteLine("\t1. View Accounts\n\t2. Create new Savings or Current account\n\t3. Logout");
-            WriteLine(Auth.CurrentUser.Id);
             Write("==> ");
             string answer= ReadLine();
 
@@ -174,7 +173,7 @@ namespace Swyft.UI
                 try
                 {
                     _accountService.Withdraw(amount, account.Id);
-                    WriteLine("Transfer transaction successful");
+                    WriteLine("Withdrawal transaction successful");
                 }
                 catch (Exception e)
                 {
@@ -266,7 +265,7 @@ namespace Swyft.UI
 
         public void DisplayAccountBalance(Account account)
         {
-            WriteLine($"Available balance for account {account.AccountNumber}: {account.Balance:N2}");
+            WriteLine($"Available balance for account {account.AccountNumber}: {account.Balance:C}");
 
             Write("Press Enter to continue: ");
             ReadLine();

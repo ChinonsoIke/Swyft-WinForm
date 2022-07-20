@@ -27,7 +27,7 @@ namespace Swyft.Helpers
             foreach (var account in accounts)
             {
                 Thread.Sleep(300);
-                Console.WriteLine($"| {++num,-3} | {account.AccountName,-27} | {account.AccountNumber,-14} | {account.Type,-12} | {account.Balance,19:N2} |");
+                Console.WriteLine($"| {++num,-3} | {account.AccountName,-27} | {account.AccountNumber,-14} | {account.Type,-12} | {account.Balance,19:C} |");
             }
             Console.WriteLine($"| {"---------------------------------------------------------------------------------------",-87} |");
         }
@@ -53,10 +53,10 @@ namespace Swyft.Helpers
                     Write($"| {transaction.CreatedAt.ToString("d"),-10} ");
                     Write($"| {transaction.Description,-34} | ");
                     BackgroundColor = transaction.Type == TransType.Debit ? ConsoleColor.DarkRed : ConsoleColor.DarkGreen;
-                    Write($"{transaction.Amount,19:N2}");
+                    Write($"{transaction.Amount,19:C}");
                     BackgroundColor = ConsoleColor.Black;
                     Write($" | {transaction.Type,-10} ");
-                    WriteLine($"| {transaction.AccountBalance,19:N2} |");
+                    WriteLine($"| {transaction.AccountBalance,19:C} |");
                 }
             }
             Console.WriteLine($"| {"--------------------------------------------------------------------------------------------------------",-90} |");
