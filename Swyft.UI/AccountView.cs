@@ -30,6 +30,7 @@ namespace Swyft.UI
             Print.PrintLogo();
             WriteLine("Select an option to continue:");
             WriteLine("\t1. View Accounts\n\t2. Create new Savings or Current account\n\t3. Logout");
+            WriteLine(Auth.CurrentUser.Id);
             Write("==> ");
             string answer= ReadLine();
 
@@ -76,7 +77,7 @@ namespace Swyft.UI
         {
             var accounts = _accountService.GetAllUserAccounts(user.Id);
 
-            if(accounts.Count > 0)
+            if (accounts.Count > 0)
             {
                 Print.PrintAccountDetails(accounts);
 
@@ -95,7 +96,6 @@ namespace Swyft.UI
                 WriteLine("You currently have no accounts.");
                 ReadLine();
             }
-
         }
 
         public void DisplaySingleAccount(Account account)

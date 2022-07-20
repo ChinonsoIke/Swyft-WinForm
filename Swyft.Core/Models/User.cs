@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Swyft.Core.Models
 {
-    public class User : IEntity
+    public class User
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

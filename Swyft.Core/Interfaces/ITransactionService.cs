@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Swyft.Core.Interfaces
 {
-    public interface ITransactionService : IEntityService
+    public interface ITransactionService : IService
     {
         /// <summary>
         /// Create a transaction and save to data store

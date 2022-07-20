@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Swyft.Core.Models
 {
-    public class Account : IEntity
+    public class Account
     {
         public int Id { get; set; }
         public string AccountName { get; set; }

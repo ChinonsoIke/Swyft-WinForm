@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Swyft.Core.Models
 {
-    public class Transaction : IEntity
+    public class Transaction
     {
         public int Id { get; set; }
         public TransType Type { get; set; }

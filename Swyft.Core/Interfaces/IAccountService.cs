@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Swyft.Core.Interfaces
 {
-    public interface IAccountService : IEntityService
+    public interface IAccountService : IService
     {
         /// <summary>
         /// Create bank account and save to data store
@@ -18,7 +18,7 @@ namespace Swyft.Core.Interfaces
         /// <summary>
         /// retrieve an account from the data store using the id
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">integer identifier for target account</param>
         /// <returns>target account if found and null if not found</returns>
         Account Get(int id);
 

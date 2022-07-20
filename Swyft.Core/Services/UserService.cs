@@ -34,7 +34,7 @@ namespace Swyft.Core.Services
             throw new NotImplementedException();
         }
 
-        public IEntity Get(int id)
+        public User Get(int id)
         {
             throw new NotImplementedException();
         }

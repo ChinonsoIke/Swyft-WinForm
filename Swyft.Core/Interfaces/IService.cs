@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Swyft.Core.Interfaces
 {
-    public interface IEntity
+    public interface IService
     {
+        // void Create(params object[] list);
+
+        // IEntity Get(int id);
+
+        void Edit(int id);
+
+        void Delete(int id);
     }
 }
