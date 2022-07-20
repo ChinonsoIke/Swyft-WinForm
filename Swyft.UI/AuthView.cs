@@ -10,10 +10,12 @@ namespace Swyft.UI
     public class AuthView : IAuthView
     {
         private readonly IUserService _userService;
+        private readonly IAccountView _accountView;
 
-        public AuthView(IUserService userService)
+        public AuthView(IUserService userService, IAccountView accountView)
         {
             _userService = userService;
+            _accountView = accountView;
         }
 
         public void DisplayAuthMenu()
@@ -145,7 +147,7 @@ namespace Swyft.UI
 
             while (true)
             {
-                Write("\nEnter a 4-digit PIN to use for your transactions: ");
+                Write("Enter a 4-digit PIN to use for your transactions: ");
                 pin = Validate.GetPassword();
 
                 if (pin.ToLower() == "q") return;
@@ -160,6 +162,7 @@ namespace Swyft.UI
 
             _userService.Create(firstName, lastName, email, passwordHash, pin);
             Auth.Login(email, password);
+            _accountView.DisplayCreateAccountMenu(Auth.CurrentUser);
         }
     }
 }

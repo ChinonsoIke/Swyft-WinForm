@@ -50,7 +50,7 @@ namespace Swyft.UI
 
         public void DisplayCreateAccountMenu(User user)
         {
-            WriteLine("Select account type:");
+            WriteLine("Select bank account type:");
             WriteLine("\t1. Savings\n\t2. Current\n");
             Write("==> ");
             string answer = ReadLine();
