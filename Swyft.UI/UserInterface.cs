@@ -33,7 +33,7 @@ namespace Swyft.UI
             ForegroundColor = ConsoleColor.DarkBlue;
 
             // skip authentication and bank account creation stages
-            Faker.Initiate();
+            // Faker.Initiate();
 
             while (true)
             {
