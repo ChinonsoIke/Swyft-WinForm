@@ -1,12 +1,9 @@
 ﻿using Figgle;
-using Swyft.Core.Models;
+using Swyft.Models;
 using Swyft.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using static System.Console;
 
 namespace Swyft.Helpers

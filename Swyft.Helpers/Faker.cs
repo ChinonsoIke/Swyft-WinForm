@@ -1,15 +1,11 @@
 ﻿using Swyft.Core.Authentication;
-using Swyft.Core.Models;
+using Swyft.Models;
 using Swyft.Core.Services;
 using Swyft.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static BCrypt.Net.BCrypt;
+using Swyft.Data;
 
-namespace Swyft.Core.Data
+namespace Swyft.Helpers
 {
     public class Faker
     {

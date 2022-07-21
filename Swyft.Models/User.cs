@@ -1,13 +1,7 @@
-﻿using Swyft.Core.Interfaces;
-using Swyft.Core.Services;
-using Swyft.Utility;
+﻿using Swyft.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Swyft.Core.Models
+namespace Swyft.Models
 {
     public class User
     {

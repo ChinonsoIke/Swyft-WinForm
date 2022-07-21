@@ -1,11 +1,8 @@
-﻿using Swyft.Core.Data;
-using Swyft.Core.Models;
+﻿using Swyft.Models;
+using Swyft.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using static System.Console;
 
 namespace Swyft.Helpers

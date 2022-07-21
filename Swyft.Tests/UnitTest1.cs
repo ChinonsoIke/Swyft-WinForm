@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using Swyft.Core.Models;
+using Swyft.Models;
 using Swyft.Utility;
 
 namespace Swyft.Tests

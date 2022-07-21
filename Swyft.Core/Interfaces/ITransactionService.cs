@@ -1,4 +1,4 @@
-﻿using Swyft.Core.Models;
+﻿using Swyft.Models;
 using Swyft.Utility;
 using System;
 using System.Collections.Generic;

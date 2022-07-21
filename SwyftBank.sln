@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft.UI", "Swyft.UI\Swyft.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft.Tests", "Swyft.Tests\Swyft.Tests.csproj", "{39903094-65F3-4560-9251-BB1625A29066}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwyftBank", "SwyftBank\SwyftBank.csproj", "{5119450D-C1A4-4D6A-9F1D-FF0D0B2CF312}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwyftBank", "SwyftBank\SwyftBank.csproj", "{5119450D-C1A4-4D6A-9F1D-FF0D0B2CF312}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swyft.Data", "Swyft.Data\Swyft.Data.csproj", "{46BA9610-12EB-4882-BF99-A6F9ED57D54C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swyft.Models", "Swyft.Models\Swyft.Models.csproj", "{55A80BB9-4FE8-40A3-BFB2-FE03A21E8843}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{5119450D-C1A4-4D6A-9F1D-FF0D0B2CF312}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5119450D-C1A4-4D6A-9F1D-FF0D0B2CF312}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5119450D-C1A4-4D6A-9F1D-FF0D0B2CF312}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46BA9610-12EB-4882-BF99-A6F9ED57D54C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46BA9610-12EB-4882-BF99-A6F9ED57D54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46BA9610-12EB-4882-BF99-A6F9ED57D54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46BA9610-12EB-4882-BF99-A6F9ED57D54C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55A80BB9-4FE8-40A3-BFB2-FE03A21E8843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55A80BB9-4FE8-40A3-BFB2-FE03A21E8843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55A80BB9-4FE8-40A3-BFB2-FE03A21E8843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55A80BB9-4FE8-40A3-BFB2-FE03A21E8843}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,13 +1,11 @@
 ﻿using Swyft.Core.Authentication;
-using Swyft.Core.Data;
+using Swyft.Data;
 using Swyft.Core.Interfaces;
-using Swyft.Core.Models;
+using Swyft.Models;
 using Swyft.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Swyft.Core.Services
 {
@@ -65,6 +63,10 @@ namespace Swyft.Core.Services
             {
                 throw new Exception("Why this?");
             }
+
+            var account = DataStore.Accounts.First(x => x.Id == accountId);
+            account.Balance += amount;
+
             var transType = TransType.Credit;
             var transCategory = TransCategory.Deposit;
             string transDesc = $"Deposit by {Auth.CurrentUser.FullName}";
@@ -95,6 +97,8 @@ namespace Swyft.Core.Services
                     throw new Exception("You have insufficient funds to complete this transaction.");
                 }
             }
+            
+            account.Balance -= amount;
 
             var transType = TransType.Debit;
             var transCategory = TransCategory.Withdrawal;
@@ -128,9 +132,13 @@ namespace Swyft.Core.Services
                 }
             }
 
+            account.Balance -= amount;
+            
             var transType = TransType.Debit;
             var transCategory = TransCategory.Transfer;
             string transDesc = $"Transfer by {Auth.CurrentUser.FullName}";
+
+            destinationAccount.Balance += amount;
 
             var transType2 = TransType.Credit;
             var transCategory2 = TransCategory.Deposit;

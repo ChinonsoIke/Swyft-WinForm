@@ -1,9 +1,5 @@
-﻿using Swyft.Core.Models;
-using System;
+﻿using Swyft.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Swyft.Core.Interfaces
 {

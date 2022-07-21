@@ -1,16 +1,8 @@
-﻿using Microsoft.Extensions.Options;
-using Swyft.Core.Authentication;
-using Swyft.Core.Data;
-using Swyft.Core.Interfaces;
-using Swyft.Core.Services;
+﻿using Swyft.Core.Authentication;
 using Swyft.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using static System.Console;
 
 namespace Swyft.UI

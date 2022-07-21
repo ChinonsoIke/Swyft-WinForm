@@ -9,6 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Swyft.Data\Swyft.Data.csproj" />
+    <ProjectReference Include="..\Swyft.Models\Swyft.Models.csproj" />
     <ProjectReference Include="..\Swyft.Utility\Swyft.Utility.csproj" />
   </ItemGroup>
 

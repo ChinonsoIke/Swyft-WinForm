@@ -1,5 +1,5 @@
-﻿using Swyft.Core.Data;
-using Swyft.Core.Models;
+﻿using Swyft.Data;
+using Swyft.Models;
 using System.Linq;
 using static BCrypt.Net.BCrypt;
 
