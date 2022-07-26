@@ -8,6 +8,7 @@ namespace Swyft.Core.Authentication
     public class Auth
     {
         public static User CurrentUser { get; set; }
+        public static Account UserSelectedBankAccount { get; set; }
 
         /// <summary>
         /// Log a user into the application
@@ -23,6 +24,7 @@ namespace Swyft.Core.Authentication
             else
             {
                 CurrentUser = user;
+                UserSelectedBankAccount = DataStore.Accounts.FirstOrDefault(x => x.UserId == user.Id);
                 return true;
             }
         }

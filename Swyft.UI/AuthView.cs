@@ -18,7 +18,7 @@ namespace Swyft.UI
             _accountView = accountView;
         }
 
-        public void DisplayAuthMenu()
+        public async void DisplayAuthMenu()
         {
             WriteLine("Welcome, select an option to continue:");
             WriteLine("\t1. Login\n\t2. Register\n\t3. Exit");
@@ -35,6 +35,10 @@ namespace Swyft.UI
                 Register();
             }else if (reply == "3")
             {
+                if(await FileOperations.SaveToDatabase())
+                {
+                    Console.WriteLine("Saved to db");
+                };
                 Environment.Exit(0);
             }
         }

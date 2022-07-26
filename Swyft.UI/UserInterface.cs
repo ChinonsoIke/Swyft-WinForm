@@ -1,28 +1,33 @@
-﻿using Swyft.Core.Authentication;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Swyft.Core.Authentication;
 using Swyft.Helpers;
 using System;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 using static System.Console;
 
 namespace Swyft.UI
 {
     public class UserInterface
     {
-        private readonly IAuthView _authView;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IAccountView _accountView;
 
-        public UserInterface(IAuthView authView, IAccountView accountView )
+        public UserInterface(IServiceProvider serviceProvider, IAccountView accountView )
         {
-            _authView = authView;
+            _serviceProvider = serviceProvider;
             _accountView = accountView;
         }
     
         /// <summary>
         /// Start the application
         /// </summary>
-        public void Run()
+        public async Task Run()
         {
+            await FileOperations.LoadDatabase();
+            Console.WriteLine(FileOperations.usersFile);
+
             // set console output encoding to accept unicode
             OutputEncoding = System.Text.Encoding.UTF8;
 
@@ -41,6 +46,7 @@ namespace Swyft.UI
                 while (Auth.CurrentUser == null)
                 {
                     Print.PrintLogo();
+                    var _authView = _serviceProvider.GetRequiredService<AuthView>();
                     _authView.DisplayAuthMenu();
                 }
 

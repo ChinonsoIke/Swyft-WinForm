@@ -18,7 +18,7 @@ namespace SwyftBank
                     services.AddScoped<ITransactionService, TransactionService>();
                     services.AddScoped<IAccountService, AccountService>();
                     services.AddScoped<IAccountView, AccountView>();
-                    services.AddScoped<IAuthView, AuthView>();
+                    services.AddScoped<AuthView>();
                 }).Build();
 
             var userInterface = ActivatorUtilities.CreateInstance<UserInterface>(host.Services);

@@ -1,4 +1,5 @@
-﻿using Swyft.Core.Interfaces;
+﻿using Swyft.Core.Authentication;
+using Swyft.Core.Interfaces;
 using Swyft.Data;
 using Swyft.Models;
 using System;
