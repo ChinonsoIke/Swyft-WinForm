@@ -37,7 +37,8 @@ namespace Swyft.Forms
 
             foreach (var transaction in transactions)
             {
-                dt.Rows.Add(new object[] { transaction.CreatedAt.ToString("d"), transaction.Description, $"{transaction.Amount:N2}", transaction.Type, $"{transaction.AccountBalance:N2}" });
+                dt.Rows.Add(new object[] { transaction.CreatedAt.ToString("d"), transaction.Description, 
+                    $"{transaction.Amount:C}", transaction.Type, $"{transaction.AccountBalance:C}" });
             }
 
             dataGridView1.DataSource = dt;

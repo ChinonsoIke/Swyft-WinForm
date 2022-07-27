@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Swyft.Core.Authentication;
 using Swyft.Core.Interfaces;
 using Swyft.Forms;
+using Swyft.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -146,7 +147,7 @@ namespace Swyft
             Auth.Logout();
             MessageBox.Show("You have been logged out");
             var form1 = _serviceProvider.GetRequiredService<Form1>();
-            this.Close();
+            this.Hide();
             form1.Show();
         }
 
@@ -174,6 +175,11 @@ namespace Swyft
         private void btnCreateAccount_Click(object sender, EventArgs e)
         {
             OpenChildForm(_serviceProvider.GetRequiredService<CreateBankAccount>(), sender);
+        }
+
+        private void Dashboard_Closed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

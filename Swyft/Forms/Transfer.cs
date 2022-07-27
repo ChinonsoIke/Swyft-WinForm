@@ -1,5 +1,6 @@
 ﻿using Swyft.Core.Authentication;
 using Swyft.Core.Interfaces;
+using Swyft.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,6 +62,7 @@ namespace Swyft.Forms
                     try
                     {
                         _accountService.Transfer(amount, Auth.UserSelectedBankAccount.Id, destinationAccount.Id);
+                        //await FileOperations.SaveToDatabase();
                         MessageBox.Show("Transfer transaction successful");
                     }
                     catch (Exception ex)

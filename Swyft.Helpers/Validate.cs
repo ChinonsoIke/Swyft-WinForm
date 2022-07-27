@@ -127,11 +127,12 @@ namespace Swyft.Helpers
         public static Dictionary<string, string> Register(Dictionary<string, string> values)
         {
             string pass = values["password"];
+            string email = values["email"];
 
             values["firstname"] = !CheckName(values["firstname"]) ? "Invalid input for firstname" : "";
             values["lastname"] = !CheckName(values["lastname"]) ? "Invalid input for lastname" : "";
             values["email"] = !CheckEmail(values["email"]) ? "Invalid input for email" : "";
-            values["email"] += !CheckEmailUnique(values["email"]) ? "A user with this email account already exists" : values["email"];
+            values["email"] += !CheckEmailUnique(email) ? "A user with this email account already exists" : values["email"];
             values["password"] = !CheckPassword(values["password"]) ? "Invalid input for password" : "";
             values["passwordConfirm"] = !CheckPasswordMatch(pass, values["passwordConfirm"]) ? "Passwords do not match" : "";
             values["pin"] = !CheckPin(values["pin"]) ? "Invalid input for pin" : "";

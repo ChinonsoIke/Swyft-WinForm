@@ -26,13 +26,13 @@ namespace Swyft.UI
         public async Task Run()
         {
             await FileOperations.LoadDatabase();
-            Console.WriteLine(FileOperations.usersFile);
 
             // set console output encoding to accept unicode
             OutputEncoding = System.Text.Encoding.UTF8;
 
             // change current culture to english-Nigeria
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-NG", false);
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-NG", false);
+            CultureInfo.CurrentCulture = new CultureInfo("en-NG", false);
 
             //Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencySymbol = "\u20A6"; // set currency symbol to naira (already works)
 

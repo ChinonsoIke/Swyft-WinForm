@@ -12,9 +12,10 @@ namespace Swyft.Helpers
 {
     public class FileOperations
     {
-        public static readonly string usersFile = Path.Combine(Environment.CurrentDirectory, "users.json");
-        private static readonly string accountsFile = Path.Combine(Environment.CurrentDirectory, "accounts.json");
-        private static readonly string transactionsFile = Path.Combine(Environment.CurrentDirectory, "transactions.json");
+        private static string dbPath = Path.Combine(Environment.CurrentDirectory, "db");
+        private static readonly string usersFile = Path.Combine(dbPath, "users.json");
+        private static readonly string accountsFile = Path.Combine(dbPath, "accounts.json");
+        private static readonly string transactionsFile = Path.Combine(dbPath, "transactions.json");
 
         public static async Task<bool> WriteJson<T>(T obj, string path)
         {
@@ -64,6 +65,7 @@ namespace Swyft.Helpers
 
         public static async Task<bool> SaveToDatabase()
         {
+            if (!Directory.Exists(dbPath)) Directory.CreateDirectory(dbPath);
             try
             {
                 await WriteJson<List<User>>(Data.DataStore.Users, usersFile);
@@ -72,8 +74,9 @@ namespace Swyft.Helpers
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var message = ex.Message;
                 return false;
             }
         }

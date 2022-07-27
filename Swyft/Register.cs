@@ -2,6 +2,7 @@
 using Swyft.Core.Authentication;
 using Swyft.Core.Interfaces;
 using Swyft.Core.Services;
+using Swyft.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -74,6 +75,7 @@ namespace Swyft
             else
             {
                 _userService.Create(Firstname.Text, Lastname.Text, Email.Text, HashPassword(Password.Text), Pin.Text);
+                //await FileOperations.SaveToDatabase();
 
                 if (Auth.Login(Email.Text, Password.Text))
                 {

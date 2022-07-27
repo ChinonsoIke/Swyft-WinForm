@@ -5,6 +5,7 @@ using Swyft.Core.Services;
 using Swyft.Forms;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,6 +23,8 @@ namespace Swyft
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            CultureInfo.CurrentCulture = new CultureInfo("en-NG", false);
 
             var host = Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>

@@ -43,14 +43,14 @@ namespace Swyft.Forms
             LoadTheme();
         }
 
-        private async void btnDeposit_Click(object sender, EventArgs e)
+        private void btnDeposit_Click(object sender, EventArgs e)
         {
             if (decimal.TryParse(Amount.Text, out decimal amount))
             {
                 try
                 {
                     _accountService.Deposit(amount, Auth.UserSelectedBankAccount.Id);
-                    await FileOperations.SaveToDatabase();
+                    //await FileOperations.SaveToDatabase();
 
                     MessageBox.Show("Deposit transaction successful");
                 }

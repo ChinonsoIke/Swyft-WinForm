@@ -1,4 +1,5 @@
 ﻿using Swyft.Core.Interfaces;
+using Swyft.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,6 +32,7 @@ namespace Swyft.Forms
             {
                 _accountService.Create("1");
             }
+            //await FileOperations.SaveToDatabase();
             MessageBox.Show("Account creation successful");
         }
     }

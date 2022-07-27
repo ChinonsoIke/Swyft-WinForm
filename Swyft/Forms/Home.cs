@@ -1,5 +1,6 @@
 ﻿using Swyft.Core.Authentication;
 using Swyft.Core.Interfaces;
+using Swyft.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,9 @@ namespace Swyft.Forms
         private void Home_Load(object sender, EventArgs e)
         {
             LoadTheme();
+            labelGreeting.Text = $"Good {Print.GetGreeting()}, {Auth.CurrentUser.FirstName}.";
+            labelGreeting.ForeColor = ThemeColor.primaryColor;
+
             var accounts = _accountService.GetAllUserAccounts(Auth.CurrentUser.Id);
 
             DataTable dt = new DataTable();
@@ -38,7 +42,8 @@ namespace Swyft.Forms
 
             foreach (var account in accounts)
             {
-                dt.Rows.Add(new object[] { ++count, account.AccountName, account.AccountNumber, account.Type, $"{account.Balance:N2}" });
+                dt.Rows.Add(new object[] { ++count, account.AccountName, account.AccountNumber,
+                    account.Type, $"{account.Balance,-15:C}" });
             }
 
             dataGridView1.DataSource = dt;

@@ -41,7 +41,7 @@ namespace Swyft.Forms
             }
         }
 
-        private async void btnWithdraw_Click(object sender, EventArgs e)
+        private void btnWithdraw_Click(object sender, EventArgs e)
         {
             if (!decimal.TryParse(Amount.Text, out decimal amount))
             {
@@ -54,7 +54,7 @@ namespace Swyft.Forms
                 try
                 {
                     _accountService.Withdraw(amount, Auth.UserSelectedBankAccount.Id);
-                    await FileOperations.SaveToDatabase();
+                    //await FileOperations.SaveToDatabase();
                     MessageBox.Show("Withdrawal transaction successful");
                 }
                 catch (Exception ex)

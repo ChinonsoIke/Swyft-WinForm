@@ -37,6 +37,7 @@
             this.btnSelectAccount = new Krypton.Toolkit.KryptonButton();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.labelGreeting = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -54,7 +55,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(20, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(760, 430);
+            this.panel1.Size = new System.Drawing.Size(544, 331);
             this.panel1.TabIndex = 0;
             // 
             // dataGridView1
@@ -65,15 +66,15 @@
             this.dataGridView1.Location = new System.Drawing.Point(19, 100);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(721, 236);
+            this.dataGridView1.Size = new System.Drawing.Size(505, 137);
             this.dataGridView1.TabIndex = 6;
             // 
             // panel5
             // 
             this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel5.Location = new System.Drawing.Point(740, 100);
+            this.panel5.Location = new System.Drawing.Point(524, 100);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(20, 236);
+            this.panel5.Size = new System.Drawing.Size(20, 137);
             this.panel5.TabIndex = 5;
             // 
             // panel4
@@ -81,7 +82,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel4.Location = new System.Drawing.Point(0, 100);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(19, 236);
+            this.panel4.Size = new System.Drawing.Size(19, 137);
             this.panel4.TabIndex = 4;
             // 
             // panel3
@@ -90,9 +91,9 @@
             this.panel3.Controls.Add(this.btnSelectAccount);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 336);
+            this.panel3.Location = new System.Drawing.Point(0, 237);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(760, 94);
+            this.panel3.Size = new System.Drawing.Size(544, 94);
             this.panel3.TabIndex = 3;
             // 
             // AccountSelect
@@ -146,18 +147,29 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.labelGreeting);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(760, 100);
+            this.panel2.Size = new System.Drawing.Size(544, 100);
             this.panel2.TabIndex = 2;
+            // 
+            // labelGreeting
+            // 
+            this.labelGreeting.AutoSize = true;
+            this.labelGreeting.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelGreeting.Location = new System.Drawing.Point(19, 17);
+            this.labelGreeting.Name = "labelGreeting";
+            this.labelGreeting.Size = new System.Drawing.Size(90, 28);
+            this.labelGreeting.TabIndex = 1;
+            this.labelGreeting.Text = "Good Day";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Poppins Medium", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(39, 58);
+            this.label1.Location = new System.Drawing.Point(294, 67);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(222, 30);
             this.label1.TabIndex = 0;
@@ -167,7 +179,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(584, 351);
             this.Controls.Add(this.panel1);
             this.Name = "Home";
             this.Padding = new System.Windows.Forms.Padding(20, 0, 20, 20);
@@ -195,5 +207,6 @@
         private System.Windows.Forms.Label label2;
         private Krypton.Toolkit.KryptonTextBox AccountSelect;
         private Krypton.Toolkit.KryptonButton btnSelectAccount;
+        private System.Windows.Forms.Label labelGreeting;
     }
 }

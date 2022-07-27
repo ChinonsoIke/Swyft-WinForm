@@ -58,11 +58,11 @@ namespace Swyft
             //Faker.Initiate();
             await FileOperations.LoadDatabase();
             OpenChildForm(_serviceProvider.GetRequiredService<Login>());
+        }
 
-            // remove later
-            //var dashboard = _serviceProvider.GetRequiredService<Dashboard>();
-            //this.Hide();
-            //dashboard.Show();
+        private async void Form1_Closing(object sender, FormClosingEventArgs e)
+        {
+            await FileOperations.SaveToDatabase();
         }
     }
 }
