@@ -17,7 +17,7 @@ namespace Swyft.Helpers
         private static readonly string accountsFile = Path.Combine(dbPath, "accounts.json");
         private static readonly string transactionsFile = Path.Combine(dbPath, "transactions.json");
 
-        public static async Task<bool> WriteJson<T>(T obj, string path)
+        public static async Task<bool> WriteJsonAsync<T>(T obj, string path)
         {
             try
             {
@@ -32,26 +32,26 @@ namespace Swyft.Helpers
             }
         }
 
-        public static async Task<List<T>> ReadJson<T>(string path)
+        public static async Task<List<T>> ReadJsonAsync<T>(string path)
         {
             var readText = await File.ReadAllTextAsync(path);
 
             return JsonConvert.DeserializeObject<List<T>>(readText);
         }
 
-        public static async Task<bool> LoadDatabase()
+        public static async Task<bool> LoadDatabaseAsync()
         {
             try
             {
-                var users = await ReadJson<User>(usersFile);
+                var users = await ReadJsonAsync<User>(usersFile);
                 Data.DataStore.Users = users != null ? users : new List<User>();
                 UserService.IdCount = Data.DataStore.Users.Count;
 
-                var accounts = await ReadJson<Account>(accountsFile);
+                var accounts = await ReadJsonAsync<Account>(accountsFile);
                 Data.DataStore.Accounts = accounts != null ? accounts : new List<Account>();
                 AccountService.IdCount = Data.DataStore.Accounts.Count;
 
-                var trans = await ReadJson<Transaction>(transactionsFile);
+                var trans = await ReadJsonAsync<Transaction>(transactionsFile);
                 Data.DataStore.Transactions = trans != null ? trans : new List<Transaction>();
                 TransactionService.IdCount = Data.DataStore.Transactions.Count;
 
@@ -63,14 +63,14 @@ namespace Swyft.Helpers
             }
         }
 
-        public static async Task<bool> SaveToDatabase()
+        public static async Task<bool> SaveToDatabaseAsync()
         {
             if (!Directory.Exists(dbPath)) Directory.CreateDirectory(dbPath);
             try
             {
-                await WriteJson<List<User>>(Data.DataStore.Users, usersFile);
-                await WriteJson<List<Account>>(Data.DataStore.Accounts, accountsFile);
-                await WriteJson<List<Transaction>>(Data.DataStore.Transactions, transactionsFile);
+                await WriteJsonAsync<List<User>>(Data.DataStore.Users, usersFile);
+                await WriteJsonAsync<List<Account>>(Data.DataStore.Accounts, accountsFile);
+                await WriteJsonAsync<List<Transaction>>(Data.DataStore.Transactions, transactionsFile);
 
                 return true;
             }

@@ -56,7 +56,8 @@ namespace Swyft
                     Color color = SelectThemeColor();
                     currentButton = (Button)btnSender;
                     currentButton.BackColor = color;
-                    currentButton.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+                    if(currentButton.Text.Length < 18)
+                        currentButton.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
                     panelTitleBar.BackColor = color;
                     panelLogo.BackColor = ThemeColor.ChangeColorBrightness(color, -0.3);
                     ThemeColor.primaryColor = color;

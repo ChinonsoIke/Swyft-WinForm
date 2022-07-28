@@ -56,13 +56,13 @@ namespace Swyft
         private async void Form1_Load(object sender, EventArgs e)
         {
             //Faker.Initiate();
-            await FileOperations.LoadDatabase();
+            await FileOperations.LoadDatabaseAsync();
             OpenChildForm(_serviceProvider.GetRequiredService<Login>());
         }
 
         private async void Form1_Closing(object sender, FormClosingEventArgs e)
         {
-            await FileOperations.SaveToDatabase();
+            await FileOperations.SaveToDatabaseAsync();
         }
     }
 }
