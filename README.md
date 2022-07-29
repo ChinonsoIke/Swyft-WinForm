@@ -1,5 +1,5 @@
 # SwyftBank 🏦
-## A console application that model’s a Bank and its operations
+## A Windows Desktop application that model’s a Bank and its operations
 
 ### Users can:
   - register
