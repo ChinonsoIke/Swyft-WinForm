@@ -9,17 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft.Helpers", "Swyft.Help
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft.Utility", "Swyft.Utility\Swyft.Utility.csproj", "{3E376FC2-A56C-4890-92AF-7FBFF4A33531}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft.UI", "Swyft.UI\Swyft.UI.csproj", "{2967B8E1-6A17-44E4-87A4-80E21914F13C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft.Tests", "Swyft.Tests\Swyft.Tests.csproj", "{39903094-65F3-4560-9251-BB1625A29066}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwyftBank", "SwyftBank\SwyftBank.csproj", "{5119450D-C1A4-4D6A-9F1D-FF0D0B2CF312}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft.Data", "Swyft.Data\Swyft.Data.csproj", "{46BA9610-12EB-4882-BF99-A6F9ED57D54C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft.Models", "Swyft.Models\Swyft.Models.csproj", "{55A80BB9-4FE8-40A3-BFB2-FE03A21E8843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swyft", "Swyft\Swyft.csproj", "{56072CE2-8A19-4CFB-A7A5-08167620DB35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft", "Swyft\Swyft.csproj", "{56072CE2-8A19-4CFB-A7A5-08167620DB35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,18 +35,10 @@ Global
 		{3E376FC2-A56C-4890-92AF-7FBFF4A33531}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E376FC2-A56C-4890-92AF-7FBFF4A33531}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E376FC2-A56C-4890-92AF-7FBFF4A33531}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2967B8E1-6A17-44E4-87A4-80E21914F13C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2967B8E1-6A17-44E4-87A4-80E21914F13C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2967B8E1-6A17-44E4-87A4-80E21914F13C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2967B8E1-6A17-44E4-87A4-80E21914F13C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{39903094-65F3-4560-9251-BB1625A29066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{39903094-65F3-4560-9251-BB1625A29066}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39903094-65F3-4560-9251-BB1625A29066}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39903094-65F3-4560-9251-BB1625A29066}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5119450D-C1A4-4D6A-9F1D-FF0D0B2CF312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5119450D-C1A4-4D6A-9F1D-FF0D0B2CF312}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5119450D-C1A4-4D6A-9F1D-FF0D0B2CF312}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5119450D-C1A4-4D6A-9F1D-FF0D0B2CF312}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46BA9610-12EB-4882-BF99-A6F9ED57D54C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{46BA9610-12EB-4882-BF99-A6F9ED57D54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46BA9610-12EB-4882-BF99-A6F9ED57D54C}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -115,6 +115,7 @@
             // 
             this.Pin.Location = new System.Drawing.Point(179, 183);
             this.Pin.Name = "Pin";
+            this.Pin.PasswordChar = '*';
             this.Pin.Size = new System.Drawing.Size(307, 31);
             this.Pin.StateCommon.Back.Color1 = System.Drawing.Color.White;
             this.Pin.StateCommon.Border.Color1 = System.Drawing.Color.Gray;

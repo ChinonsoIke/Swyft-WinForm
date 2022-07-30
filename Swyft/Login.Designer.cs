@@ -109,7 +109,7 @@
             // 
             this.Email.Location = new System.Drawing.Point(59, 95);
             this.Email.Name = "Email";
-            this.Email.Size = new System.Drawing.Size(307, 36);
+            this.Email.Size = new System.Drawing.Size(307, 31);
             this.Email.StateCommon.Back.Color1 = System.Drawing.Color.White;
             this.Email.StateCommon.Border.Color1 = System.Drawing.Color.Gray;
             this.Email.StateCommon.Border.Color2 = System.Drawing.Color.Red;
@@ -128,7 +128,8 @@
             // 
             this.Password.Location = new System.Drawing.Point(59, 168);
             this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(307, 36);
+            this.Password.PasswordChar = '*';
+            this.Password.Size = new System.Drawing.Size(307, 31);
             this.Password.StateCommon.Back.Color1 = System.Drawing.Color.White;
             this.Password.StateCommon.Border.Color1 = System.Drawing.Color.Gray;
             this.Password.StateCommon.Border.Color2 = System.Drawing.Color.Red;

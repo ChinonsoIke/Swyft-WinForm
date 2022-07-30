@@ -1,4 +1,5 @@
 ﻿using Swyft.Core.Interfaces;
+using Swyft.Core.Services;
 using Swyft.Helpers;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,9 @@ namespace Swyft.Forms
                 _accountService.Create("1");
             }
             //await FileOperations.SaveToDatabase();
-            MessageBox.Show("Account creation successful");
+            var account = _accountService.Get(AccountService.IdCount);
+
+            MessageBox.Show($"Account successfully created. Your account details are:\n\nAccount Name: {account.AccountName}\nAccount Number: {account.AccountNumber}\nAccount Type: {account.Type}");
         }
     }
 }

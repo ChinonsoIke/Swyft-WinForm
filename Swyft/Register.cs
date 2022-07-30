@@ -30,6 +30,8 @@ namespace Swyft
             _serviceProvider = serviceProvider;
             _userService = userService;
             _accountService = accountService;
+            Password.PasswordChar = '*';
+            PasswordConfirm.PasswordChar = '*';
         }
 
         private void Register_Load(object sender, EventArgs e)
