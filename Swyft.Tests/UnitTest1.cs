@@ -1,30 +1,13 @@
-using NUnit.Framework;
-using Swyft.Models;
-using Swyft.Utility;
+using System;
+using Xunit;
 
 namespace Swyft.Tests
 {
-    public class Tests
+    public class UnitTest1
     {
-        [SetUp]
-        public void Setup()
+        [Fact]
+        public void Test1()
         {
-        }
-
-        [Test]
-        public void AccountBalanceValid()
-        {
-            // arrange
-            var user = new User(1, "Emeka", "Ike", "emekaike@test.com", "emeka2022!", "1234");
-            var account = new Account(1, user.FullName, "000999", AccountType.Savings, 1);
-
-            // act
-            decimal expected = 0M;
-            decimal actual = account.Balance;
-
-            // assert
-            Assert.AreEqual(expected, actual);
-
 
         }
     }
