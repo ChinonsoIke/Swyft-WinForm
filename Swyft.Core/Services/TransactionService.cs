@@ -27,19 +27,9 @@ namespace Swyft.Core.Services
             throw new NotImplementedException();
         }
 
-        public void Edit(int id)
+        public List<Transaction> GetAllAccountTransactions(int accountId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Transaction Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Transaction> GetAllAccountTransactions(int transId)
-        {
-            return DataStore.Transactions.Where(x => x.AccountId == transId).ToList();
+            return DataStore.Transactions.Where(x => x.AccountId == accountId).ToList();
         }
     }
 }

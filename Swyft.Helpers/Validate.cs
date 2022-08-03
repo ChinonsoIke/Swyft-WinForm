@@ -27,7 +27,7 @@ namespace Swyft.Helpers
         /// <returns>True or false value indicating whether input is valid</returns>
         public static bool CheckEmail(string email)
         {
-            return Regex.IsMatch(email, @"^[a-z0-9]{5,20}@[a-z]{3,20}\.[a-z.]{2,}$");
+            return Regex.IsMatch(email, @"^[a-z0-9]{3,20}@[a-z]{3,20}\.[a-z.]{2,}$");
         }
 
         /// <summary>
@@ -92,36 +92,6 @@ namespace Swyft.Helpers
 
             message = String.Empty;
             return account;
-        }
-
-        /// <summary>
-        /// Get password input from user in masked form
-        /// </summary>
-        /// <returns>A string inputted by the user</returns>
-        public static string GetPassword()
-        {
-            string pass = string.Empty;
-            ConsoleKey key;
-            do
-            {
-                var keyInfo = ReadKey(true);
-                key = keyInfo.Key;
-
-                if (key == ConsoleKey.Backspace && pass.Length > 0)
-                {
-                    Write("\b \b");
-                    //pass = pass[0..^1];
-                    pass = pass.Substring(0, pass.Length - 1);
-                }
-                else if (!char.IsControl(keyInfo.KeyChar))
-                {
-                    Write("*");
-                    pass += keyInfo.KeyChar;
-                }
-            } while (key != ConsoleKey.Enter);
-            WriteLine();
-
-            return pass;
         }
 
         public static Dictionary<string, string> Register(Dictionary<string, string> values)

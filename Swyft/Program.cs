@@ -1,11 +1,15 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Json;
 using Swyft.Core.Interfaces;
 using Swyft.Core.Services;
 using Swyft.Forms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,7 +46,16 @@ namespace Swyft
                     services.AddTransient<Withdrawal>();
                     services.AddTransient<Deposit>();
                     services.AddTransient<CreateBankAccount>();
-                }).Build();
+                })
+                .UseSerilog()
+                .Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File(new JsonFormatter(), Path.Combine(Environment.CurrentDirectory, "logs", "swyft-important.json"), restrictedToMinimumLevel: LogEventLevel.Warning)
+                .WriteTo.File(Path.Combine(Environment.CurrentDirectory, "logs", "swyft-.logs"), rollingInterval: RollingInterval.Day)
+                .WriteTo.Debug()
+                .MinimumLevel.Debug()
+                .CreateLogger();
 
             Application.Run(host.Services.GetRequiredService<Form1>());
         }

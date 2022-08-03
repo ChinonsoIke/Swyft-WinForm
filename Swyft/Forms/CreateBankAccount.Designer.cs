@@ -99,6 +99,7 @@
             this.Controls.Add(this.btnCreateBankAccount);
             this.Name = "CreateBankAccount";
             this.Text = "CreateBankAccount";
+            this.Load += new System.EventHandler(this.CreateBankAccount_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

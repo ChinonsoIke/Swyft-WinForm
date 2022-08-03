@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft.Models", "Swyft.Model
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft", "Swyft\Swyft.csproj", "{56072CE2-8A19-4CFB-A7A5-08167620DB35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swyft.Tests", "Swyft.Tests\Swyft.Tests.csproj", "{E7AD21C2-B64B-4ACB-A8CA-70D77BE77CC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swyft.Tests", "Swyft.Tests\Swyft.Tests.csproj", "{E7AD21C2-B64B-4ACB-A8CA-70D77BE77CC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

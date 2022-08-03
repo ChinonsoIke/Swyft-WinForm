@@ -1,5 +1,6 @@
 ﻿using Krypton.Toolkit;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using Swyft.Core.Authentication;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,8 @@ namespace Swyft
         {
             if(Auth.Login(Email.Text, Password.Text))
             {
+                Log.Information($"Newly logged in user: {Auth.CurrentUser.Email}");
+
                 var dashboard = _serviceProvider.GetRequiredService<Dashboard>();
                 parentForm.Hide();
                 dashboard.Show();

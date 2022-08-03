@@ -21,7 +21,7 @@ namespace Swyft.Core.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns>target transaction if found and null if not found</returns>
-        public Transaction Get(int id);
+        // public Transaction Get(int id);
 
         /// <summary>
         /// Get all transactions that belong to a specific bank account

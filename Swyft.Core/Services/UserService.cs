@@ -3,6 +3,7 @@ using Swyft.Core.Interfaces;
 using Swyft.Data;
 using Swyft.Models;
 using System;
+using static BCrypt.Net.BCrypt;
 
 namespace Swyft.Core.Services
 {
@@ -14,17 +15,12 @@ namespace Swyft.Core.Services
         {
             IdCount++;
 
-            var user = new User(IdCount, firstName, lastName, email, password, pin);
+            var user = new User(IdCount, firstName, lastName, email, HashPassword(password), pin);
 
             DataStore.Users.Add(user);
         }
 
         public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(int id)
         {
             throw new NotImplementedException();
         }

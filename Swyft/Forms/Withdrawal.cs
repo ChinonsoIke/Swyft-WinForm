@@ -1,4 +1,5 @@
-﻿using Swyft.Core.Authentication;
+﻿using Serilog;
+using Swyft.Core.Authentication;
 using Swyft.Core.Interfaces;
 using Swyft.Helpers;
 using System;
@@ -41,7 +42,7 @@ namespace Swyft.Forms
             }
         }
 
-        private void btnWithdraw_Click(object sender, EventArgs e)
+        private async void btnWithdraw_Click(object sender, EventArgs e)
         {
             if (!decimal.TryParse(Amount.Text, out decimal amount))
             {
@@ -53,14 +54,19 @@ namespace Swyft.Forms
             {
                 try
                 {
-                    _accountService.Withdraw(amount, Auth.UserSelectedBankAccount.Id);
-                    //await FileOperations.SaveToDatabase();
+                    var account = Auth.UserSelectedBankAccount;
+                    _accountService.Withdraw(amount, account.Id);
+                    Log.Information($"Successful withdrawal transaction. Account Name: {account.AccountNumber}, Amount: {amount}, Balance: {account.Balance}");
+                    await FileOperations.SaveToDatabaseAsync();
                     MessageBox.Show("Withdrawal transaction successful");
                 }
                 catch (Exception ex)
                 {
                     Invalid.Visible = true;
                     Invalid.Text = ex.Message;
+
+                    var account = Auth.UserSelectedBankAccount;
+                    Log.Information($"Withdrawal transaction error. Account Name: {account.AccountNumber}, Message: {ex.Message}");
                 }
             }
             else

@@ -1,5 +1,6 @@
 ﻿using Krypton.Toolkit;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using Swyft.Core.Authentication;
 using Swyft.Core.Interfaces;
 using Swyft.Core.Services;
@@ -55,14 +56,21 @@ namespace Swyft
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            //Faker.Initiate();
-            await FileOperations.LoadDatabaseAsync();
+            bool loadDb = await FileOperations.LoadDatabaseAsync();
+            if (!loadDb)
+            {
+                Log.Fatal($"Could not load database at {DateTime.Now}");
+                MessageBox.Show("Error loading application");
+                    
+                Application.Exit();
+                MessageBox.Show("Error loading application");
+            }
             OpenChildForm(_serviceProvider.GetRequiredService<Login>());
         }
 
         private async void Form1_Closing(object sender, FormClosingEventArgs e)
         {
-            await FileOperations.SaveToDatabaseAsync();
+            // await FileOperations.SaveToDatabaseAsync();
         }
     }
 }

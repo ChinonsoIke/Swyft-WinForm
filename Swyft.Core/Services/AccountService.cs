@@ -6,6 +6,7 @@ using Swyft.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace Swyft.Core.Services
 {
@@ -14,6 +15,7 @@ namespace Swyft.Core.Services
         public static int IdCount { get; set; }
 
         private readonly ITransactionService _transactionService;
+        private readonly ILogger<AccountService> _log;
 
         public AccountService(ITransactionService transactionService)
         {
@@ -23,14 +25,9 @@ namespace Swyft.Core.Services
         {
             var user = Auth.CurrentUser;
             IdCount++;
-            string accountNumber= "00";
+            string accountNumber = GenerateAccountNumber();
             AccountType accountType = type == "1" ? AccountType.Savings : AccountType.Current;
-            var rand= new Random();
-            for (int i = 1; i <= 8; i++)
-            {
-                int num= rand.Next(10);
-                accountNumber += num;
-            }
+
             var account = new Account(IdCount, user.FullName, accountNumber, accountType, user.Id);
 
             DataStore.Accounts.Add(account);
@@ -40,16 +37,8 @@ namespace Swyft.Core.Services
         {
             var account = DataStore.Accounts.FirstOrDefault(x => x.Id == id);
             var transactions= DataStore.Transactions.Where(x => x.AccountId == account.Id);
-            foreach (var trans in transactions)
-            {
-                trans.Status = EntityStatus.Inactive;
-            }
+            
             account.Status = EntityStatus.Inactive;
-        }
-
-        public void Edit(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public Account Get(int id)
@@ -64,7 +53,7 @@ namespace Swyft.Core.Services
                 throw new Exception("Why this?");
             }
 
-            var account = DataStore.Accounts.First(x => x.Id == accountId);
+            var account = Get(accountId);
             account.Balance += amount;
 
             var transType = TransType.Credit;
@@ -83,21 +72,16 @@ namespace Swyft.Core.Services
 
             var account = DataStore.Accounts.First(x => x.Id == accountId);
 
-            if (account.Type == AccountType.Savings)
+            if (account.Balance < amount)
             {
-                if (account.Balance - amount < 1000)
-                {
-                    throw new Exception("You have insufficient funds to complete this transaction.");
-                }
+                throw new Exception("You have insufficient funds to complete this transaction.");
             }
-            else if (account.Type == AccountType.Current)
+
+            if ((account.Type == AccountType.Savings) && (account.Balance - amount <= 1000))
             {
-                if (account.Balance < amount)
-                {
-                    throw new Exception("You have insufficient funds to complete this transaction.");
-                }
+                throw new Exception("You have insufficient funds to complete this transaction.");
             }
-            
+
             account.Balance -= amount;
 
             var transType = TransType.Debit;
@@ -117,16 +101,14 @@ namespace Swyft.Core.Services
             var account = DataStore.Accounts.First(x => x.Id == accountId);
             var destinationAccount = DataStore.Accounts.First(x => x.Id == destinationAccountId);
 
+            if (account.Balance < amount)
+            {
+                throw new Exception("You have insufficient funds to complete this transaction.");
+            }
+
             if (account.Type == AccountType.Savings)
             {
-                if (account.Balance - amount < 1000)
-                {
-                    throw new Exception("You have insufficient funds to complete this transaction.");
-                }
-            }
-            else if (account.Type == AccountType.Current)
-            {
-                if (account.Balance < amount)
+                if (account.Balance - amount <= 1000)
                 {
                     throw new Exception("You have insufficient funds to complete this transaction.");
                 }
@@ -148,9 +130,23 @@ namespace Swyft.Core.Services
             _transactionService.Create(amount, destinationAccountId, transType2, transCategory2, transDesc2);
         }
 
-        public List<Account> GetAllUserAccounts(int accountId)
+        public string GenerateAccountNumber()
         {
-            return DataStore.Accounts.Where(x => x.UserId == accountId).ToList();
+            string accountNumber = "00";
+            var rand = new Random();
+
+            for (int i = 1; i <= 8; i++)
+            {
+                int num = rand.Next(10);
+                accountNumber += num;
+            }
+
+            return accountNumber;
+        }
+
+        public List<Account> GetAllUserAccounts(int userId)
+        {
+            return DataStore.Accounts.Where(x => x.UserId == userId).ToList();
         }
     }
 }

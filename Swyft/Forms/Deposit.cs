@@ -1,4 +1,5 @@
-﻿using Swyft.Core.Authentication;
+﻿using Serilog;
+using Swyft.Core.Authentication;
 using Swyft.Core.Interfaces;
 using Swyft.Core.Services;
 using Swyft.Helpers;
@@ -43,14 +44,16 @@ namespace Swyft.Forms
             LoadTheme();
         }
 
-        private void btnDeposit_Click(object sender, EventArgs e)
+        private async void btnDeposit_Click(object sender, EventArgs e)
         {
             if (decimal.TryParse(Amount.Text, out decimal amount))
             {
                 try
                 {
-                    _accountService.Deposit(amount, Auth.UserSelectedBankAccount.Id);
-                    //await FileOperations.SaveToDatabase();
+                    var account = Auth.UserSelectedBankAccount;
+                    _accountService.Deposit(amount, account.Id);
+                    Log.Information($"Successful deposit transaction. Account Name: {account.AccountNumber}, Amount: {amount}, Balance: {account.Balance}");
+                    await FileOperations.SaveToDatabaseAsync();
 
                     MessageBox.Show("Deposit transaction successful");
                 }
@@ -58,6 +61,9 @@ namespace Swyft.Forms
                 {
                     Invalid.Visible = true;
                     Invalid.Text = ex.Message;
+
+                    var account = Auth.UserSelectedBankAccount;
+                    Log.Information($"Deposit transaction error. Account Name: {account.AccountNumber}, Message: {ex.Message}");
                 }
             }
             else

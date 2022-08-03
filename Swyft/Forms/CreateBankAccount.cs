@@ -1,4 +1,5 @@
-﻿using Swyft.Core.Interfaces;
+﻿using Serilog;
+using Swyft.Core.Interfaces;
 using Swyft.Core.Services;
 using Swyft.Helpers;
 using System;
@@ -23,7 +24,7 @@ namespace Swyft.Forms
             _accountService = accountService;
         }
 
-        private void btnCreateBankAccount_Click(object sender, EventArgs e)
+        private async void btnCreateBankAccount_Click(object sender, EventArgs e)
         {
             if (CurrentRadio.Checked)
             {
@@ -33,10 +34,18 @@ namespace Swyft.Forms
             {
                 _accountService.Create("1");
             }
-            //await FileOperations.SaveToDatabase();
+
+            await FileOperations.SaveToDatabaseAsync();
+
             var account = _accountService.Get(AccountService.IdCount);
+            Log.Information($"Newly created bank account: {account.AccountName}, {account.AccountNumber}, {account.Type}");
 
             MessageBox.Show($"Account successfully created. Your account details are:\n\nAccount Name: {account.AccountName}\nAccount Number: {account.AccountNumber}\nAccount Type: {account.Type}");
+        }
+
+        private void CreateBankAccount_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

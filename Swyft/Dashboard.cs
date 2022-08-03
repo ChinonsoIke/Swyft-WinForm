@@ -1,5 +1,6 @@
 ﻿using Krypton.Toolkit;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using Swyft.Core.Authentication;
 using Swyft.Core.Interfaces;
 using Swyft.Forms;
@@ -145,6 +146,8 @@ namespace Swyft
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
+            Log.Information($"User logged out: {Auth.CurrentUser.Email}");
+
             Auth.Logout();
             MessageBox.Show("You have been logged out");
             var form1 = _serviceProvider.GetRequiredService<Form1>();

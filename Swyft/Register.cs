@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using Swyft.Core.Authentication;
 using Swyft.Core.Interfaces;
 using Swyft.Core.Services;
@@ -49,7 +50,7 @@ namespace Swyft
             parentForm.OpenChildForm(_serviceProvider.GetRequiredService<Login>());
         }
 
-        private void Register_Click(object sender, EventArgs e)
+        private async void Register_Click(object sender, EventArgs e)
         {
             var values = new Dictionary<string, string>
             {
@@ -76,11 +77,14 @@ namespace Swyft
             }
             else
             {
-                _userService.Create(Firstname.Text, Lastname.Text, Email.Text, HashPassword(Password.Text), Pin.Text);
-                //await FileOperations.SaveToDatabase();
+                _userService.Create(Firstname.Text, Lastname.Text, Email.Text, Password.Text, Pin.Text);
+                Log.Information($"Newly registered user: {Firstname.Text} {Lastname.Text}, {Email.Text}");
+
+                await FileOperations.SaveToDatabaseAsync();
 
                 if (Auth.Login(Email.Text, Password.Text))
                 {
+                    Log.Information($"Newly logged in user: {Auth.CurrentUser.Email}");
                     if (CurrentRadio.Checked)
                     {
                         _accountService.Create("2");
@@ -91,6 +95,7 @@ namespace Swyft
                     }
 
                     var account = _accountService.Get(AccountService.IdCount);
+                    Log.Information($"Newly created bank account: {account.AccountName}, {account.AccountNumber}, {account.Type}");
                     Auth.UserSelectedBankAccount = account;
 
                     var dashboard = _serviceProvider.GetRequiredService<Dashboard>();
