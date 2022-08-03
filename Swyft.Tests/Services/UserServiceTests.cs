@@ -20,28 +20,10 @@ namespace Swyft.Tests
         [Fact()]
         public void CreateTest()
         {
-            UserService.IdCount = 0;
-            int initialIdCount = UserService.IdCount;
             int initialUserCount = DataStore.Users.Count;
             _userService.Create("Nonso", "Ike", "nonsoike@test.com", "noxx2022!", "1234");
 
-            Assert.NotEqual(initialIdCount, UserService.IdCount);
-            Assert.NotEqual(initialIdCount, DataStore.Users.Count);
-        }
-
-        [Fact()]
-        public void DeleteTest()
-        {
-        }
-
-        [Fact()]
-        public void EditTest()
-        {
-        }
-
-        [Fact()]
-        public void GetTest()
-        {
+            Assert.NotEqual(initialUserCount, DataStore.Users.Count);
         }
     }
 }

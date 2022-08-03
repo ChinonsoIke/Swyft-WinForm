@@ -10,6 +10,7 @@ using Swyft.Models;
 using Swyft.Core.Authentication;
 using Moq;
 using Swyft.Core.Interfaces;
+using Autofac.Extras.Moq;
 
 namespace Swyft.Tests
 {
@@ -20,7 +21,8 @@ namespace Swyft.Tests
         private Account _commonAccount;
         public AccountServiceTests()
         {
-            _accountService = new AccountService(mockTransService.Object);
+            var mock = AutoMock.GetLoose();
+            _accountService = mock.Create<AccountService>();
             var user = new User(1, "John", "Jones", "johnjones@test.com", "john22!", "1234");
             Auth.CurrentUser = user;
             _accountService.Create("1");
@@ -145,13 +147,14 @@ namespace Swyft.Tests
         [Fact()]
         public void GetAllUserAccountsTest()
         {
+            DataStore.Accounts.Clear();
             _accountService.Create("1");
             _accountService.Create("2");
 
             var expected = _accountService.GetAllUserAccounts(Auth.CurrentUser.Id);
 
-            Assert.Equal(3, expected.Count);
-            Assert.Equal(3, expected.Count(x => x.UserId == Auth.CurrentUser.Id));
+            Assert.Equal(2, expected.Count);
+            Assert.Equal(2, expected.Count(x => x.UserId == Auth.CurrentUser.Id));
         }
     }
 }

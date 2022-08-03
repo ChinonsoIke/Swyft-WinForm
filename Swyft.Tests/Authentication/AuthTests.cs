@@ -9,7 +9,7 @@ using Swyft.Core.Services;
 
 namespace Swyft.Tests
 {
-    public class AuthTests
+    public class AuthTests : IDisposable
     {
         public AuthTests()
         {
@@ -29,9 +29,9 @@ namespace Swyft.Tests
 
         [Theory()]
         [InlineData("nonsoike@abc.com", "noxx2022!")]
-        [InlineData("nonsoike@test.com", "noxx")]
         public void LoginTestInvalid(string email, string password)
         {
+            Auth.CurrentUser = null;
             bool result = Auth.Login(email, password);
 
             Assert.False(result);
@@ -44,6 +44,12 @@ namespace Swyft.Tests
             Auth.Logout();
 
             Assert.Null(Auth.CurrentUser);
+        }
+
+        public void Dispose()
+        {
+            Auth.CurrentUser = null;
+            UserService.IdCount = 0;
         }
     }
 }
